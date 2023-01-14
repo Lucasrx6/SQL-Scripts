@@ -38,4 +38,16 @@ ______________________________________________
 ![sp 5](https://user-images.githubusercontent.com/86980974/212478806-1b7c1a01-9c29-481b-bb6c-92797470bd03.PNG)
 
 
+______________________________________________
+
+### --- PROCEDURE PARA INSERT NAS TABELAS ---
+
+![sp 1](https://user-images.githubusercontent.com/86980974/212480645-df974baf-c92d-4d7c-9bda-2f61d804a6f7.PNG)
+![sp 2](https://user-images.githubusercontent.com/86980974/212480650-89b846a1-faec-4c3a-bbd2-6c966cd2519f.PNG)
+![sp 3](https://user-images.githubusercontent.com/86980974/212480654-f3387a8d-47fc-4b93-be9d-60b896ac09c3.PNG)
+![sp 4](https://user-images.githubusercontent.com/86980974/212480658-5acd85c8-2d32-45d6-84f7-cba8ef74b753.PNG)
+
+
+
+
 
