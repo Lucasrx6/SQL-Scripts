@@ -40,7 +40,7 @@ ______________________________________________
 
 ______________________________________________
 
-### --- PROCEDURE PARA INSERT NAS TABELAS ---
+### --- VIEWS DAS TABELAS ---
 
 ![sp 1](https://user-images.githubusercontent.com/86980974/212480645-df974baf-c92d-4d7c-9bda-2f61d804a6f7.PNG)
 ![sp 2](https://user-images.githubusercontent.com/86980974/212480650-89b846a1-faec-4c3a-bbd2-6c966cd2519f.PNG)
