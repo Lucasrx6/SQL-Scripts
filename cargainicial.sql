@@ -170,3 +170,99 @@ VALUES (1,'Brasil Pandeiro',3,1),(2,'Preta Pretinha',6.4,1),(3,'Tinindo Trincand
 (387,'Ainda é cedo (take 9)  ',1.15,26),(388,'Será (Outtake)  ',2.31,27),(389,'Chamadas de rádio  ',1.04,28),(390,'Petróleo do Futuro (demo BSB)  ',2.42,29),(391,'Ainda é cedo (demo BSB)  ',4.23,30),(392,'Teorema (demo BSB)  ',2.35,31),(393,'Aduuuuuuhhh!! (ao vivo)  ',2.4,32),
 (394,'Profecia de Renato  ',1.39,33),(395,'Por Enquanto (Outtake)  ',2.49,34),(396,'A Dança (remix Mario Caldato) part Herbert Vianna ',3.04,35),(397,'O Reggae (remix Liminha)  ',3.48,36),(398,'Todo Carnaval Tem Seu Fim (Marcelo Camelo)',4.23,37),(399,'A Flor (Rodrigo Amarante, Marcelo Camelo)',3.27,38),
 (400,'Retrato Pra Iaiá (Rodrigo Amarante, Marcelo Camelo',3.57,39),(401,'Assim Será (Marcelo Camelo)',3.36,40);
+
+
+CREATE VIEW vw_gravadora AS
+SELECT g.id_gravadora ID, 
+g.nome_gravadora NOME, 
+COUNT(d.id_disco) DISCOS 
+FROM tb_gravadora g
+JOIN tb_disco d
+ON d.id_gravadora = g.id_gravadora GROUP BY g.id_gravadora;
+
+
+-- vw_disco - deve conter todos os dados do disco, porem as fks devem ser substituidas pelo nome do item que a mesma representa.
+CREATE VIEW vw_disco AS
+SELECT d.id_disco ID,
+		d.titulo_disco TITULO,
+        d.tempo_disco TEMPO,
+        d.ano_lancamento ANO,
+        a.nome_artista ARTISTA,
+        g.nome_gravadora GRAVADORA,
+        e.nome_genero GENERO 
+FROM tb_disco d
+INNER JOIN tb_artista a
+ON a.id_artista = d.id_artista
+INNER JOIN tb_gravadora g
+ON g.id_gravadora = d.id_gravadora
+INNER JOIN tb_genero e
+ON e.id_genero = d.id_genero;
+
+
+-- vw_artista - deve conter id, nome completo, idade, total de discos
+CREATE VIEW vw_artista AS
+SELECT a.id_artista ID, 
+	CONCAT(a.nome_artista,' ', a.sobrenome_artista) NOME,
+        a.idade_artista IDADE,
+        COUNT(d.id_disco) DISCOS
+FROM tb_artista a
+INNER JOIN tb_disco d
+ON d.id_artista = a.id_artista GROUP BY d.id_artista;
+
+-- vw_musicas - deve conter nome da musica, duração, o disco e o artista.
+
+CREATE VIEW vw_musica AS
+SELECT m.nome_musica MUSICA,
+	   m.tempo_musica TEMPO,
+       d.titulo_disco DISCO,
+       CONCAT(a.nome_artista,' ', a.sobrenome_artista) ARTISTA
+FROM tb_musica m
+INNER JOIN tb_disco d
+	ON d.id_disco = m.id_disco
+INNER JOIN tb_artista a
+	ON d.id_artista = a.id_artista;
+	
+	
+DELIMITER $$
+CREATE PROCEDURE sp_insertGravadora(nome_g VARCHAR (20))
+BEGIN
+	INSERT INTO tb_gravadora (nome_gravadora)
+    VALUES (RemoveAcento(nome_g));
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertArtista(nome_a VARCHAR (20), sobrenome_a VARCHAR (30), dtnasc_a DATE, idade_a INT)
+BEGIN
+	INSERT INTO tb_artista (nome_artista, sobrenome_artista, dt_nasc_artista, idade_artista)
+    VALUES (RemoveAcento(nome_a), RemoveAcento(sobrenome_a), dtnasc_a, idade_a);
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertGenero(nome_e VARCHAR(20))
+BEGIN
+	INSERT INTO tb_genero (nome_genero)
+    VALUES (RemoveAcento(nome_e));
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertMusica (nome_m VARCHAR(20), tempo_musica_m FLOAT, id_disco_m INT)
+BEGIN
+	INSERT INTO tb_musica (nome_musica, tempo_musica, id_disco)
+    VALUES (RemoveAcento(nome_m), tempo_musica_m, id_disco_m);
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertDisco(titulo_disco_d VARCHAR(20), tempo_disco_d FLOAT, ano_lancamento_d YEAR, id_artista_d INT, id_gravadora_d INT, id_genero_d INT)
+BEGIN
+	INSERT INTO tb_disco (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero)
+    VALUES (RemoveAcento(titulo_disco_d), tempo_disco_d, ano_lancamento_d, id_artista_d, id_gravadora_d, id_genero_d);
+END $$
+DELIMITER ;
