@@ -266,3 +266,165 @@ BEGIN
     VALUES (RemoveAcento(titulo_disco_d), tempo_disco_d, ano_lancamento_d, id_artista_d, id_gravadora_d, id_genero_d);
 END $$
 DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION fn_removeAcento(Texto VARCHAR(50))
+RETURNS VARCHAR (50)
+BEGIN
+	SET Texto = REPLACE(Texto,'á','a'),
+        Texto = REPLACE(Texto,'ã','a'),
+		Texto = REPLACE(Texto,'à','a'),
+        Texto = REPLACE(Texto,'é','e'),
+        Texto = REPLACE(Texto,'í','i'),
+        Texto = REPLACE(Texto,'ó','o'),
+        Texto = REPLACE(Texto,'ú','u'),
+        Texto = REPLACE(Texto,'Á','A'),
+        Texto = REPLACE(Texto,'Ã','A'),
+        Texto = REPLACE(Texto,'À','A'),
+        Texto = REPLACE(Texto,'É','E'),
+        Texto = REPLACE(Texto,'Í','I'),
+        Texto = REPLACE(Texto,'Ó','O'),
+        Texto = REPLACE(Texto,'Ú','U'),
+        Texto = REPLACE(Texto,'Ç','C'),
+        Texto = REPLACE(Texto,'ç','c'),
+        Texto = UPPER(Texto);
+	RETURN Texto;
+END;
+$$
+DELIMITER ;
+
+/* INSERT DO ARTISTA*/
+DROP PROCEDURE sp_insertArtista;
+DELIMITER $$
+CREATE PROCEDURE sp_insertArtista(nome_a VARCHAR (20), sobrenome_a VARCHAR (30), dtnasc_a DATE)
+BEGIN
+	DECLARE idade_a INT;
+	IF (dtnasc_a > CURDATE()) OR (dtnasc_a < '1953-01-19') THEN-----> SE A DATA INFORMADA FOR ACIMA DA DATA ATUAL OU MUITO ANTIGA, SERÁ FEITO UMA TROCA DE DATA
+			SET dtnasc_a = '1990-01-01';
+	END IF;
+    SET idade_a = TIMESTAMPDIFF(YEAR, dtnasc_a, now()); ----------------> IDADE CALCULADA AUTOMATICAMENTE COM A DATA INFORMADA NO PARAMETRO
+    
+    INSERT INTO tb_artista (nome_artista, sobrenome_artista, dt_nasc_artista, idade_artista)
+    VALUES (fn_removeAcento(nome_a), fn_removeAcento(sobrenome_a), dtnasc_a, idade_a); ---> FUNÇÃO PARA TIRAR ACENTO E DEIXAR TUDO MAIUSCULO
+END$$
+DELIMITER ;
+
+CALL sp_insertArtista('lucas','fernandes','1900-03-03');
+
+SELECT * FROM tb_artista;
+------------------------------------------------------------------------
+/* INSERT DO GENERO*/
+
+ALTER TABLE tb_genero
+MODIFY nome_genero VARCHAR (20) UNIQUE; -- unique para não receber nome de genero duplicados
+
+DROP PROCEDURE sp_insertGenero;
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertGenero(nome_e VARCHAR(20))
+BEGIN
+	
+    INSERT INTO tb_genero (nome_genero)
+    VALUES (fn_removeAcento(nome_e));  ---> FUNÇÃO PARA TIRAR ACENTO E DEIXAR TUDO MAIUSCULO
+END$$
+DELIMITER ;
+
+CALL sp_insertGenero ('desconhecido');
+
+SELECT * FROM tb_genero;
+-------------------------------------------------------------------------
+/* INSERT DA GRAVADORA*/
+
+DROP PROCEDURE sp_insertGravadora;
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertGravadora(nome_g VARCHAR (20))
+BEGIN
+	
+    INSERT INTO tb_gravadora (nome_gravadora)
+    VALUES (fn_removeAcento(nome_g));  ---> FUNÇÃO PARA TIRAR ACENTO E DEIXAR TUDO MAIUSCULO
+END$$
+DELIMITER ;
+
+CALL sp_insertGravadora ('desconhecido');
+
+SELECT * FROM tb_gravadora;
+
+-------------------------------------------------------------------------
+/* INSERT DO DISCO */
+
+DROP PROCEDURE sp_insertDisco;
+DELIMITER $$
+CREATE PROCEDURE sp_insertDisco(titulo_disco_d VARCHAR(20),tempo_disco_d FLOAT, ano_lancamento_d YEAR, id_artista_d INT, id_gravadora_d INT, id_genero_d INT)
+BEGIN
+	
+    DECLARE val_genero INT;
+    DECLARE val_generoNull INT;
+	DECLARE val_artista INT;
+    DECLARE val_artistaNull INT;
+    DECLARE val_gravadora INT;
+	DECLARE val_gravadoraNull INT;
+    DECLARE tempo_disco_d FLOAT;
+    
+    SET val_genero = (SELECT MAX(id_genero) FROM tb_genero);
+	SET val_generoNull = (SELECT id_genero FROM tb_genero WHERE id_genero = id_genero_d);
+    
+    SET val_artista = (SELECT MAX(id_artista) FROM tb_artista);
+	SET val_artistaNull = (SELECT id_artista FROM tb_artista WHERE id_artista = id_artista_d);
+    
+    SET val_gravadora = (SELECT MAX(id_gravadora) FROM tb_gravadora);
+	SET val_gravadoraNull = (SELECT id_gravadora FROM tb_gravadora WHERE id_gravadora = id_gravadora_d);
+    
+    
+    IF (id_genero_d > val_genero) OR (id_genero_d < 0) OR (val_generoNull IS NULL )THEN
+			SET id_genero_d = 10;
+	END IF;
+    
+    IF (id_artista_d > val_artista) OR (id_artista_d < 0) OR (val_artistaNull IS NULL )THEN
+			SET id_artista_d = 785;
+	END IF;
+    
+    IF (id_gravadora_d > val_gravadora) OR (id_gravadora_d < 0) OR (val_gravadoraNull IS NULL )THEN ----> IFs PARA VALIDAR INFORMAÇÃO INSERIDA DE GENERO, GRAVADORA E ARTISTA
+			SET id_gravadora_d = 12;
+	END IF;
+    
+    SET tempo_disco_d = (30);
+    
+	
+	INSERT INTO tb_disco (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero)
+    VALUES (fn_removeAcento(titulo_disco_d), tempo_disco_d, ano_lancamento_d, id_artista_d, id_gravadora_d, id_genero_d);
+    
+END $$
+DELIMITER ;
+
+CALL sp_insertDisco('DESCONHECIDO',0,1996,30,30,30);
+select * from tb_disco;
+DELIMITER $$
+
+/*-------------------------------------------------------------------------*/
+DROP PROCEDURE sp_insertMusica;
+DELIMITER $$
+CREATE PROCEDURE sp_insertMusica (nome_m VARCHAR(20), tempo_musica_m FLOAT, id_disco_m INT)
+BEGIN
+	
+	DECLARE val_disco INT;
+    DECLARE val_discoNull INT;
+
+	SET val_disco = (SELECT MAX(id_disco) FROM tb_disco);
+	SET val_discoNull = (SELECT id_disco FROM tb_disco WHERE id_disco = id_disco_m);
+    
+     IF (id_disco_m > val_disco) OR (id_disco_m < 0) OR (val_discoNull IS NULL )THEN ----> VALIDAR SE O DISCO O QUAL ESTÁ SENDO INSERIDO EXISTE E SE A MUSICA TEM UM TEMPO MENOR QUE 0
+			SET id_disco_m = 50;
+	END IF;
+    
+    IF (tempo_musica_m < 0) THEN
+		SET tempo_musica_m = 1.0;
+	END IF;
+    
+	
+	INSERT INTO tb_musica (nome_musica, tempo_musica, id_disco)
+    VALUES (fn_removeAcento(nome_m), tempo_musica_m, id_disco_m);
+END$$
+DELIMITER ;
+
+CALL sp_insertMusica('TESTE4',-2,80);
