@@ -1,6 +1,7 @@
-### db_discoteca
+# db_discoteca
 
-Este banco de dados foi desenvolvido nas Aulas de Administrador de Banco de Dados no SENAI.
+## Sobre o Projeto
+Este projeto é um banco de dados que tem como objetivo gerir as informações de uma gravadora. As informações são organizadas em tabelas que representam as principais entidades do negócio.
 ____________________________________________
 Abaixo você encontrá uma breve apresentação do banco.
 
@@ -22,9 +23,13 @@ _______________________________________________
 
 _______________________________________________
 
-### --- FUNCION PARA REMOVER ACENTO ---
+## As principais tabelas do banco são:
 
-![fUNCTION](https://user-images.githubusercontent.com/86980974/212478625-ecd4c21b-e63a-4571-9377-238684dca7c3.PNG)
+- '1 - tabela ' tb_artista: tabela que contém as informações dos artistas contratados pela gravadora, como nome, nacionalidade, data de nascimento, entre outros.
+- '1 - tabela ' tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
+- '1 - tabela ' tb_gravadora: tabela que contém as informações da própria gravadora, como nome, país de origem, data de fundação, entre outros.
+- '1 - tabela ' tb_genero: tabela que contém as informações dos gêneros musicais, como nome e descrição.
+- '1 - tabela ' tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
 
 ______________________________________________
 
