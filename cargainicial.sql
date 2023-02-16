@@ -441,46 +441,59 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE sp_update_artista(
-    IN p_id_artista INT,
-    IN p_nome_artista VARCHAR(20),
-    IN p_dt_nasc_artista DATE
+  IN p_id_artista INT,
+  IN p_nome_artista VARCHAR(100),
+  IN p_ano_nascimento DATE,
+  IN p_id_pais INT
 )
 BEGIN
-    IF p_nome_artista REGEXP '^[a-zA-Z]+$' AND p_dt_nasc_artista <= CURRENT_DATE() THEN
-        UPDATE tb_artista SET nome_artista = p_nome_artista, dt_nasc_artista = p_dt_nasc_artista
-        WHERE id_artista = p_id_artista;
-        SELECT 'Dados atualizados com sucesso!';
-    ELSE
-        SELECT 'Erro: Dados inválidos!';
-    END IF;
+  DECLARE v_num_rows INT;
+  
+  SELECT COUNT(*) INTO v_num_rows FROM tb_artista WHERE id_artista = p_id_artista;
+  
+  IF v_num_rows = 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Artista não encontrado.';
+  ELSEIF p_nome_artista REGEXP '[0-9]' THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O nome do artista não pode conter números.';
+  ELSEIF p_ano_nascimento >= CURRENT_DATE() THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A data de nascimento não pode ser igual ou posterior à data atual.';
+  ELSE
+    UPDATE tb_artista SET nome_artista = p_nome_artista, ano_nascimento = p_ano_nascimento, id_pais = p_id_pais WHERE id_artista = p_id_artista;
+  END IF;
 END//
 DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE sp_update_disco(
-    IN p_id_disco INT,
-    IN p_titulo_disco VARCHAR(30),
-    IN p_tempo_disco FLOAT,
-    IN p_ano_lancamento YEAR,
-    IN p_id_artista INT,
-    IN p_id_gravadora INT,
-    IN p_id_genero INT
+  IN p_id_disco INT,
+  IN p_titulo_disco VARCHAR(100),
+  IN p_tempo_disco TIME,
+  IN p_ano_lancamento DATE,
+  IN p_id_artista INT,
+  IN p_id_gravadora INT,
+  IN p_id_genero INT
 )
 BEGIN
-    DECLARE total_tempo FLOAT;
-    SELECT SUM(tempo_musica) INTO total_tempo FROM tb_musica WHERE id_disco = p_id_disco;
+  DECLARE v_num_rows INT;
+  DECLARE v_total_tempo TIME;
+  
+  SELECT COUNT(*) INTO v_num_rows FROM tb_disco WHERE id_disco = p_id_disco;
+  
+  IF v_num_rows = 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Disco não encontrado.';
+  ELSEIF p_titulo_disco REGEXP '[0-9]' THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O título do disco não pode conter números.';
+  ELSEIF p_ano_lancamento >= CURRENT_DATE() THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A data de lançamento não pode ser igual ou posterior à data atual.';
+  ELSE
+    SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(tempo_musica))) INTO v_total_tempo FROM tb_musica WHERE id_disco = p_id_disco;
     
-    IF p_titulo_disco REGEXP '^[a-zA-Z0-9\s]+$' AND p_tempo_disco >= total_tempo AND p_ano_lancamento <= YEAR(CURRENT_DATE()) 
-       AND EXISTS (SELECT id_artista FROM tb_artista WHERE id_artista = p_id_artista)
-       AND EXISTS (SELECT id_gravadora FROM tb_gravadora WHERE id_gravadora = p_id_gravadora)
-       AND EXISTS (SELECT id_genero FROM tb_genero WHERE id_genero = p_id_genero) THEN
-        UPDATE tb_disco SET titulo_disco = p_titulo_disco, tempo_disco = p_tempo_disco, ano_lancamento = p_ano_lancamento,
-        id_artista = p_id_artista, id_gravadora = p_id_gravadora, id_genero = p_id_genero
-        WHERE id_disco = p_id_disco;
-        SELECT 'Dados atualizados com sucesso!';
+    IF v_total_tempo <> p_tempo_disco THEN
+      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O tempo total do disco deve ser igual à soma dos tempos das músicas.';
     ELSE
-        SELECT 'Erro: Dados inválidos!';
+      UPDATE tb_disco SET titulo_disco = p_titulo_disco, tempo_disco = p_tempo_disco, ano_lancamento = p_ano_lancamento, id_artista = p_id_artista, id_gravadora = p_id_gravadora, id_genero = p_id_genero WHERE id_disco = p_id_disco;
     END IF;
+  END IF;
 END//
 DELIMITER ;
 
@@ -502,17 +515,25 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE sp_update_gravadora(
-    IN p_id_gravadora INT,
-    IN p_nome_gravadora VARCHAR(20)
+  IN p_id_gravadora INT,
+  IN p_nome_gravadora VARCHAR(100)
 )
 BEGIN
-    IF p_nome_gravadora REGEXP '^[a-zA-Z]+$' THEN
-        UPDATE tb_gravadora SET nome_gravadora = p_nome_gravadora
-        WHERE id_gravadora = p_id_gravadora;
-        SELECT 'Dados atualizados com sucesso!';
-    ELSE
-        SELECT 'Erro: Dados inválidos!';
-    END IF;
+  DECLARE v_num_rows INT;
+  
+  SELECT COUNT(*) INTO v_num_rows FROM tb_gravadora WHERE id_gravadora = p_id_gravadora;
+
+IF v_num_rows = 0 THEN
+SELECT 'Gravadora não encontrada' AS error;
+ELSE
+IF p_nome_gravadora REGEXP '^[a-zA-ZÀ-ÿ]+[a-zA-ZÀ-ÿ\s]*$' = 0 THEN
+SELECT 'Nome da gravadora inválido' AS error;
+ELSE
+UPDATE tb_gravadora SET nome_gravadora = p_nome_gravadora WHERE id_gravadora = p_id_gravadora;
+SELECT 'Gravadora atualizada com sucesso' AS success;
+END IF;
+END IF;
+
 END//
 
 DELIMITER ;
