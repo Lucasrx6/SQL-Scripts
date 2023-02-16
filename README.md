@@ -45,7 +45,11 @@ O banco de dados também conta com algumas procedures para facilitar a inserçã
 - `Procedure 9`: sp_delete_disco: Deleta um disco da tabela tb_disco, verificando se o id do disco é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
 - `Procedure 10`: sp_delete_musica: Deleta uma música da tabela tb_musica, verificando se o id da música é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
 ### Procedures de UPDATE
-- `Procedure 11`: sp_delete_artista: Deleta um artista da tabela tb_artista, verificando se o id do artista é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
+- `Procedure 11`: sp_update_artista: Atualiza as informações de um artista na tabela tb_artista. Verifica se os dados de entrada (nome_artista, ano_nascimento, id_pais) são válidos e não nulos. Impede a inserção de caracteres numéricos no nome do artista e garante que as datas sejam inseridas corretamente.
+- `Procedure 12`: sp_update_disco: Atualiza as informações de um disco na tabela tb_disco. Verifica se os dados de entrada (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero) são válidos e não nulos. Impede a inserção de caracteres numéricos no título do disco e garante que o tempo total do disco seja a soma do tempo das músicas que o compõem.
+- `Procedure 13`: sp_update_genero: Atualiza as informações de um gênero na tabela tb_genero. Verifica se os dados de entrada (nome_genero) são válidos e não nulos. Impede a inserção de caracteres numéricos no nome do gênero.
+- `Procedure 14`: sp_update_gravadora: Atualiza as informações de uma gravadora na tabela tb_gravadora. Verifica se os dados de entrada (nome_gravadora) são válidos e não nulos. Impede a inserção de caracteres numéricos no nome da gravadora.
+- `Procedure 15`: sp_update_musica: Atualiza as informações de uma música na tabela tb_musica. Verifica se os dados de entrada (titulo_musica, duracao_musica, id_disco, id_genero) são válidos e não nulos. Impede a inserção de caracteres numéricos no título da música e garante que a duração da música seja inserida corretamente.
 
 Trigger:
 
