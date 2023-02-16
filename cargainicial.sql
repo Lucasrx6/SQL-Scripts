@@ -172,26 +172,35 @@ VALUES (1,'Brasil Pandeiro',3,1),(2,'Preta Pretinha',6.4,1),(3,'Tinindo Trincand
 (400,'Retrato Pra Iaiá (Rodrigo Amarante, Marcelo Camelo',3.57,39),(401,'Assim Será (Marcelo Camelo)',3.36,40);
 
 
-CREATE VIEW view_disco_musica AS
-SELECT d.titulo_disco, m.nome_musica, m.tempo_musica
-FROM tb_musica m
-JOIN tb_disco d ON m.id_disco = d.id_disco;
-
-CREATE VIEW view_disco_artista AS
-SELECT d.titulo_disco, a.nome_artista, a.dt_nasc_artista
+CREATE VIEW v_disco_artista_genero AS 
+SELECT d.id_disco, d.titulo_disco, a.nome_artista, g.nome_genero
 FROM tb_disco d
-JOIN tb_artista a ON d.id_artista = a.id_artista;
+INNER JOIN tb_artista a ON d.id_artista = a.id_artista
+INNER JOIN tb_genero g ON d.id_genero = g.id_genero;
 
-CREATE VIEW view_musica_genero AS
-SELECT m.nome_musica, g.nome_genero
-FROM tb_musica m
-JOIN tb_disco d ON m.id_disco = d.id_disco
-JOIN tb_genero g ON d.id_genero = g.id_genero;
+CREATE VIEW v_disco_musica AS 
+SELECT d.titulo_disco, m.nome_musica, m.tempo_musica
+FROM tb_disco d
+INNER JOIN tb_musica m ON d.id_disco = m.id_disco;
 
-CREATE VIEW view_gravadora_disco AS
-SELECT g.nome_gravadora, d.titulo_disco
+CREATE VIEW v_gravadora_quantidade_discos AS 
+SELECT g.nome_gravadora, COUNT(d.id_disco) AS quantidade_discos
 FROM tb_gravadora g
-JOIN tb_disco d ON g.id_gravadora = d.id_gravadora;
+LEFT JOIN tb_disco d ON g.id_gravadora = d.id_gravadora
+GROUP BY g.nome_gravadora;
+
+CREATE VIEW v_artista_discos_lancados AS 
+SELECT a.nome_artista, COUNT(d.id_disco) AS discos_lancados
+FROM tb_artista a
+LEFT JOIN tb_disco d ON a.id_artista = d.id_artista
+GROUP BY a.nome_artista;
+
+CREATE VIEW v_disco_ano_genero AS 
+SELECT d.ano_lancamento, g.nome_genero, COUNT(d.id_disco) AS quantidade_discos
+FROM tb_disco d
+INNER JOIN tb_genero g ON d.id_genero = g.id_genero
+GROUP BY d.ano_lancamento, g.nome_genero;
+
 
 	
 	
