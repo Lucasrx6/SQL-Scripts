@@ -172,55 +172,27 @@ VALUES (1,'Brasil Pandeiro',3,1),(2,'Preta Pretinha',6.4,1),(3,'Tinindo Trincand
 (400,'Retrato Pra Iaiá (Rodrigo Amarante, Marcelo Camelo',3.57,39),(401,'Assim Será (Marcelo Camelo)',3.36,40);
 
 
-CREATE VIEW vw_gravadora AS
-SELECT g.id_gravadora ID, 
-g.nome_gravadora NOME, 
-COUNT(d.id_disco) DISCOS 
-FROM tb_gravadora g
-JOIN tb_disco d
-ON d.id_gravadora = g.id_gravadora GROUP BY g.id_gravadora;
-
-
--- vw_disco - deve conter todos os dados do disco, porem as fks devem ser substituidas pelo nome do item que a mesma representa.
-CREATE VIEW vw_disco AS
-SELECT d.id_disco ID,
-		d.titulo_disco TITULO,
-        d.tempo_disco TEMPO,
-        d.ano_lancamento ANO,
-        a.nome_artista ARTISTA,
-        g.nome_gravadora GRAVADORA,
-        e.nome_genero GENERO 
-FROM tb_disco d
-INNER JOIN tb_artista a
-ON a.id_artista = d.id_artista
-INNER JOIN tb_gravadora g
-ON g.id_gravadora = d.id_gravadora
-INNER JOIN tb_genero e
-ON e.id_genero = d.id_genero;
-
-
--- vw_artista - deve conter id, nome completo, idade, total de discos
-CREATE VIEW vw_artista AS
-SELECT a.id_artista ID, 
-	CONCAT(a.nome_artista,' ', a.sobrenome_artista) NOME,
-        a.idade_artista IDADE,
-        COUNT(d.id_disco) DISCOS
-FROM tb_artista a
-INNER JOIN tb_disco d
-ON d.id_artista = a.id_artista GROUP BY d.id_artista;
-
--- vw_musicas - deve conter nome da musica, duração, o disco e o artista.
-
-CREATE VIEW vw_musica AS
-SELECT m.nome_musica MUSICA,
-	   m.tempo_musica TEMPO,
-       d.titulo_disco DISCO,
-       CONCAT(a.nome_artista,' ', a.sobrenome_artista) ARTISTA
+CREATE VIEW view_disco_musica AS
+SELECT d.titulo_disco, m.nome_musica, m.tempo_musica
 FROM tb_musica m
-INNER JOIN tb_disco d
-	ON d.id_disco = m.id_disco
-INNER JOIN tb_artista a
-	ON d.id_artista = a.id_artista;
+JOIN tb_disco d ON m.id_disco = d.id_disco;
+
+CREATE VIEW view_disco_artista AS
+SELECT d.titulo_disco, a.nome_artista, a.dt_nasc_artista
+FROM tb_disco d
+JOIN tb_artista a ON d.id_artista = a.id_artista;
+
+CREATE VIEW view_musica_genero AS
+SELECT m.nome_musica, g.nome_genero
+FROM tb_musica m
+JOIN tb_disco d ON m.id_disco = d.id_disco
+JOIN tb_genero g ON d.id_genero = g.id_genero;
+
+CREATE VIEW view_gravadora_disco AS
+SELECT g.nome_gravadora, d.titulo_disco
+FROM tb_gravadora g
+JOIN tb_disco d ON g.id_gravadora = d.id_gravadora;
+
 	
 	
 DELIMITER //
