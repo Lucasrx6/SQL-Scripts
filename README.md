@@ -25,19 +25,19 @@ _______________________________________________
 
 ## As principais tabelas do banco são:
 
-- '1 - tabela ' tb_artista: tabela que contém as informações dos artistas contratados pela gravadora, como nome, nacionalidade, data de nascimento, entre outros.
-- '2 - tabela ' tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
-- '3 - tabela ' tb_gravadora: tabela que contém as informações da própria gravadora, como nome, país de origem, data de fundação, entre outros.
-- '4 - tabela ' tb_genero: tabela que contém as informações dos gêneros musicais, como nome e descrição.
-- '5 - tabela ' tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
+- `Tabela 1`: tb_artista: tabela que contém as informações dos artistas contratados pela gravadora, como nome, nacionalidade, data de nascimento, entre outros.
+- `Tabela 2`: tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
+- `Tabela 3`: tb_gravadora: tabela que contém as informações da própria gravadora, como nome, país de origem, data de fundação, entre outros.
+- `Tabela 4`: tb_genero: tabela que contém as informações dos gêneros musicais, como nome e descrição.
+- `Tabela 5`: tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
 
 O banco de dados também conta com algumas procedures para facilitar a inserção de dados nas tabelas e evitar possíveis erros, como valores nulos ou em branco. Algumas das principais procedures são:
 
-- '1 - procedure ' sp_insert_artista: procedure que insere um novo artista na tabela tb_artista.
-- '2 - procedure ' sp_insert_disco: procedure que insere um novo disco na tabela tb_disco.
-- '3 - procedure ' sp_insert_gravadora: procedure que insere uma nova gravadora na tabela tb_gravadora.
-- '4 - procedure ' sp_insert_genero: procedure que insere um novo gênero na tabela tb_genero.
-- '5 - procedure ' sp_insert_musica: procedure que insere uma nova música na tabela tb_musica.
+- `Procedure 1`: sp_insert_artista: procedure que insere um novo artista na tabela tb_artista.
+- `Procedure 2`: sp_insert_disco: procedure que insere um novo disco na tabela tb_disco.
+- `Procedure 3`: sp_insert_gravadora: procedure que insere uma nova gravadora na tabela tb_gravadora.
+- `Procedure 4`: sp_insert_genero: procedure que insere um novo gênero na tabela tb_genero.
+- `Procedure 5`: sp_insert_musica: procedure que insere uma nova música na tabela tb_musica.
 
 ______________________________________________
 
