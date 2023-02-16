@@ -57,7 +57,11 @@ O banco de dados também conta com algumas procedures para facilitar a inserçã
 - `Trigger`: trigger_insert_tb_musica: Atua sobre a tabela tb_musica, executando uma série de ações quando uma nova linha é inserida na tabela. A trigger atualiza o campo tempo_disco na tabela tb_disco, somando o tempo da nova música inserida ao tempo já existente do disco. Além disso, a trigger verifica se o tempo total do disco após a inserção da nova música é menor ou igual a 80 minutos. Caso ultrapasse esse limite, a trigger remove a última música inserida e atualiza novamente o campo tempo_disco na tabela tb_disco. Isso garante que o tempo total do disco nunca ultrapasse o limite de 80 minutos.
 
 # Views:
-
+- `View 1`: v_disco_artista_genero: Essa view retorna uma lista com os títulos dos discos, os nomes dos artistas e os gêneros musicais a que pertencem. É possível utilizá-la para consultar as informações dos discos, artistas e gêneros simultaneamente.
+- `View 2`: v_disco_musica: Essa view retorna uma lista com os títulos dos discos, o nome das músicas e o tempo de duração de cada música. É possível utilizá-la para consultar as informações das músicas presentes em cada disco.
+- `View 3`: v_gravadora_quantidade_discos: Essa view retorna uma lista com o nome das gravadoras e a quantidade de discos que elas possuem. É possível utilizá-la para consultar as informações das gravadoras presentes no banco de dados.
+- `View 4`: v_artista_discos_lancados: Essa view retorna uma lista com o nome dos artistas e a quantidade de discos que eles lançaram. É possível utilizá-la para consultar as informações dos artistas presentes no banco de dados.
+- `View 5`: v_disco_ano_genero: Essa view retorna uma lista com os títulos dos discos, o ano de lançamento e o gênero musical a que pertencem. É possível utilizá-la para consultar as informações dos discos e seus respectivos gêneros, bem como para analisar as estatísticas de lançamento de discos por ano.
 
 ______________________________________________
 
