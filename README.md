@@ -56,17 +56,20 @@ O banco de dados também conta com algumas procedures para facilitar a inserçã
 
 - `Trigger`: trigger_insert_tb_musica: Atua sobre a tabela tb_musica, executando uma série de ações quando uma nova linha é inserida na tabela. A trigger atualiza o campo tempo_disco na tabela tb_disco, somando o tempo da nova música inserida ao tempo já existente do disco. Além disso, a trigger verifica se o tempo total do disco após a inserção da nova música é menor ou igual a 80 minutos. Caso ultrapasse esse limite, a trigger remove a última música inserida e atualiza novamente o campo tempo_disco na tabela tb_disco. Isso garante que o tempo total do disco nunca ultrapasse o limite de 80 minutos.
 
+# Views:
+
+
 ______________________________________________
 
-## Tecnologias Utilizadas
+# Tecnologias Utilizadas
 O banco de dados foi desenvolvido utilizando o sistema de gerenciamento de banco de dados MySQL. Para criar as procedures, foram utilizadas a linguagem SQL e as sintaxes específicas do MySQL.
 
-## Como Usar
+# Como Usar
 O banco de dados está disponível online e pode ser acessado por meio do link: [link do banco].
 
 O acesso é restrito e só pode ser feito por meio de um usuário e senha previamente cadastrados. Para usar o banco, é necessário ter conhecimentos em SQL e no sistema de gerenciamento de banco de dados MySQL.
 
-## Como Contribuir
+# Como Contribuir
 Este projeto é um banco de dados que foi desenvolvido com o objetivo de gerir as informações de uma gravadora.
 
 
