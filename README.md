@@ -26,31 +26,31 @@ _______________________________________________
 ## As principais tabelas do banco são:
 
 - '1 - tabela ' tb_artista: tabela que contém as informações dos artistas contratados pela gravadora, como nome, nacionalidade, data de nascimento, entre outros.
-- '1 - tabela ' tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
-- '1 - tabela ' tb_gravadora: tabela que contém as informações da própria gravadora, como nome, país de origem, data de fundação, entre outros.
-- '1 - tabela ' tb_genero: tabela que contém as informações dos gêneros musicais, como nome e descrição.
-- '1 - tabela ' tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
+- '2 - tabela ' tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
+- '3 - tabela ' tb_gravadora: tabela que contém as informações da própria gravadora, como nome, país de origem, data de fundação, entre outros.
+- '4 - tabela ' tb_genero: tabela que contém as informações dos gêneros musicais, como nome e descrição.
+- '5 - tabela ' tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
+
+O banco de dados também conta com algumas procedures para facilitar a inserção de dados nas tabelas e evitar possíveis erros, como valores nulos ou em branco. Algumas das principais procedures são:
+
+- '1 - procedure ' sp_insert_artista: procedure que insere um novo artista na tabela tb_artista.
+- '2 - procedure ' sp_insert_disco: procedure que insere um novo disco na tabela tb_disco.
+- '3 - procedure ' sp_insert_gravadora: procedure que insere uma nova gravadora na tabela tb_gravadora.
+- '4 - procedure ' sp_insert_genero: procedure que insere um novo gênero na tabela tb_genero.
+- '5 - procedure ' sp_insert_musica: procedure que insere uma nova música na tabela tb_musica.
 
 ______________________________________________
 
-### --- PROCEDURE PARA INSERT NAS TABELAS ---
+## Tecnologias Utilizadas
+O banco de dados foi desenvolvido utilizando o sistema de gerenciamento de banco de dados MySQL. Para criar as procedures, foram utilizadas a linguagem SQL e as sintaxes específicas do MySQL.
 
+## Como Usar
+O banco de dados está disponível online e pode ser acessado por meio do link: [link do banco].
 
-![sp 1](https://user-images.githubusercontent.com/86980974/212478795-4c7779bb-5e93-40b4-9fbf-953770271a4e.PNG)
-![sp 2](https://user-images.githubusercontent.com/86980974/212478799-85763a32-04e8-425c-b4b4-913566d7128f.PNG)
-![sp 3](https://user-images.githubusercontent.com/86980974/212478801-58a01553-f8bb-4ff4-98ef-612655f43276.PNG)
-![sp 4](https://user-images.githubusercontent.com/86980974/212478803-b2e7e4dd-efb7-4933-9885-b400324e5fcc.PNG)
-![sp 5](https://user-images.githubusercontent.com/86980974/212478806-1b7c1a01-9c29-481b-bb6c-92797470bd03.PNG)
+O acesso é restrito e só pode ser feito por meio de um usuário e senha previamente cadastrados. Para usar o banco, é necessário ter conhecimentos em SQL e no sistema de gerenciamento de banco de dados MySQL.
 
-
-______________________________________________
-
-### --- VIEWS DAS TABELAS ---
-
-![sp 1](https://user-images.githubusercontent.com/86980974/212480645-df974baf-c92d-4d7c-9bda-2f61d804a6f7.PNG)
-![sp 2](https://user-images.githubusercontent.com/86980974/212480650-89b846a1-faec-4c3a-bbd2-6c966cd2519f.PNG)
-![sp 3](https://user-images.githubusercontent.com/86980974/212480654-f3387a8d-47fc-4b93-be9d-60b896ac09c3.PNG)
-![sp 4](https://user-images.githubusercontent.com/86980974/212480658-5acd85c8-2d32-45d6-84f7-cba8ef74b753.PNG)
+## Como Contribuir
+Este projeto é um banco de dados que foi desenvolvido com o objetivo de gerir as informações de uma gravadora.
 
 
 
