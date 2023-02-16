@@ -33,11 +33,15 @@ _______________________________________________
 
 O banco de dados também conta com algumas procedures para facilitar a inserção de dados nas tabelas e evitar possíveis erros, como valores nulos ou em branco. Algumas das principais procedures são:
 
-- `Procedure 1`: sp_insert_artista: procedure que insere um novo artista na tabela tb_artista.
-- `Procedure 2`: sp_insert_disco: procedure que insere um novo disco na tabela tb_disco.
-- `Procedure 3`: sp_insert_gravadora: procedure que insere uma nova gravadora na tabela tb_gravadora.
-- `Procedure 4`: sp_insert_genero: procedure que insere um novo gênero na tabela tb_genero.
-- `Procedure 5`: sp_insert_musica: procedure que insere uma nova música na tabela tb_musica.
+- `Procedure 1`: sp_insert_artista: Insere um novo artista na tabela tb_artista, verificando se os dados de entrada (nome_artista, ano_nascimento, id_pais) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
+- `Procedure 2`: sp_insert_disco: Insere um novo disco na tabela tb_disco, verificando se os dados de entrada (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero) são válidos e não nulos. Para garantir que o tempo total do disco seja a soma do tempo das músicas que o compõem, a procedure realiza uma soma do tempo das músicas com o mesmo id_disco do disco a ser inserido e compara com o valor passado como parâmetro. Caso os dados de entrada não sejam válidos, a procedure não realiza a inserção e retorna uma mensagem de erro.
+- `Procedure 3`: sp_insert_gravadora: Insere uma nova gravadora na tabela tb_gravadora, verificando se os dados de entrada (nome_gravadora, id_pais) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
+- `Procedure 4`: sp_insert_genero: Insere um novo gênero musical na tabela tb_genero, verificando se os dados de entrada (nome_genero) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
+- `Procedure 5`: sp_insert_musica: Insere uma nova música na tabela tb_musica, verificando se os dados de entrada (nome_musica, tempo_musica, id_disco) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
+
+Trigger:
+
+- `Trigger`: trigger_insert_tb_musica: Atua sobre a tabela tb_musica, executando uma série de ações quando uma nova linha é inserida na tabela. A trigger atualiza o campo tempo_disco na tabela tb_disco, somando o tempo da nova música inserida ao tempo já existente do disco. Além disso, a trigger verifica se o tempo total do disco após a inserção da nova música é menor ou igual a 80 minutos. Caso ultrapasse esse limite, a trigger remove a última música inserida e atualiza novamente o campo tempo_disco na tabela tb_disco. Isso garante que o tempo total do disco nunca ultrapasse o limite de 80 minutos.
 
 ______________________________________________
 
