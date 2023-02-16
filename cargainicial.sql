@@ -438,3 +438,111 @@ DELETE FROM tb_musica WHERE id_musica = musica_id;
 END //
 
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_artista(
+    IN p_id_artista INT,
+    IN p_nome_artista VARCHAR(20),
+    IN p_dt_nasc_artista DATE
+)
+BEGIN
+    IF p_nome_artista REGEXP '^[a-zA-Z]+$' AND p_dt_nasc_artista <= CURRENT_DATE() THEN
+        UPDATE tb_artista SET nome_artista = p_nome_artista, dt_nasc_artista = p_dt_nasc_artista
+        WHERE id_artista = p_id_artista;
+        SELECT 'Dados atualizados com sucesso!';
+    ELSE
+        SELECT 'Erro: Dados inválidos!';
+    END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_disco(
+    IN p_id_disco INT,
+    IN p_titulo_disco VARCHAR(30),
+    IN p_tempo_disco FLOAT,
+    IN p_ano_lancamento YEAR,
+    IN p_id_artista INT,
+    IN p_id_gravadora INT,
+    IN p_id_genero INT
+)
+BEGIN
+    DECLARE total_tempo FLOAT;
+    SELECT SUM(tempo_musica) INTO total_tempo FROM tb_musica WHERE id_disco = p_id_disco;
+    
+    IF p_titulo_disco REGEXP '^[a-zA-Z0-9\s]+$' AND p_tempo_disco >= total_tempo AND p_ano_lancamento <= YEAR(CURRENT_DATE()) 
+       AND EXISTS (SELECT id_artista FROM tb_artista WHERE id_artista = p_id_artista)
+       AND EXISTS (SELECT id_gravadora FROM tb_gravadora WHERE id_gravadora = p_id_gravadora)
+       AND EXISTS (SELECT id_genero FROM tb_genero WHERE id_genero = p_id_genero) THEN
+        UPDATE tb_disco SET titulo_disco = p_titulo_disco, tempo_disco = p_tempo_disco, ano_lancamento = p_ano_lancamento,
+        id_artista = p_id_artista, id_gravadora = p_id_gravadora, id_genero = p_id_genero
+        WHERE id_disco = p_id_disco;
+        SELECT 'Dados atualizados com sucesso!';
+    ELSE
+        SELECT 'Erro: Dados inválidos!';
+    END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_genero(
+    IN p_id_genero INT,
+    IN p_nome_genero VARCHAR(20)
+)
+BEGIN
+    IF p_nome_genero REGEXP '^[a-zA-Z]+$' THEN
+        UPDATE tb_genero SET nome_genero = p_nome_genero
+        WHERE id_genero = p_id_genero;
+        SELECT 'Dados atualizados com sucesso!';
+    ELSE
+        SELECT 'Erro: Dados inválidos!';
+    END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_gravadora(
+    IN p_id_gravadora INT,
+    IN p_nome_gravadora VARCHAR(20)
+)
+BEGIN
+    IF p_nome_gravadora REGEXP '^[a-zA-Z]+$' THEN
+        UPDATE tb_gravadora SET nome_gravadora = p_nome_gravadora
+        WHERE id_gravadora = p_id_gravadora;
+        SELECT 'Dados atualizados com sucesso!';
+    ELSE
+        SELECT 'Erro: Dados inválidos!';
+    END IF;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_artista(
+IN id_artista INT,
+IN nome_artista VARCHAR(20),
+IN dt_nasc_artista DATE
+)
+BEGIN
+DECLARE strError VARCHAR(255);
+-- Verifica se os parâmetros são válidos e não nulos
+IF (nome_artista REGEXP '[0-9]' OR nome_artista = '') THEN
+    SET strError = 'O nome do artista é inválido.';
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = strError;
+END IF;
+
+IF (dt_nasc_artista IS NULL) THEN
+    SET strError = 'A data de nascimento do artista não pode ser nula.';
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = strError;
+END IF;
+
+-- Verifica se o artista com o id informado existe na tabela
+IF (NOT EXISTS (SELECT * FROM tb_artista WHERE id_artista = id_artista)) THEN
+    SET strError = CONCAT('O artista com o id ', id_artista, ' não existe na tabela.');
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = strError;
+END IF;
+
+-- Atualiza as informações do artista com os novos valores
+UPDATE tb_artista SET nome_artista = nome_artista, dt_nasc_artista = dt_nasc_artista WHERE id_artista = id_artista;
+END//
+DELIMITER ;
