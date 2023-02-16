@@ -5,25 +5,25 @@ Este projeto é um banco de dados que tem como objetivo gerir as informações d
 ____________________________________________
 Abaixo você encontrá uma breve apresentação do banco.
 
-### --- MODELO CONCEITUAL ---
+# MODELO CONCEITUAL
 
 ![Conceitual](https://user-images.githubusercontent.com/86980974/212477679-22a8521a-9e19-4968-81c8-2b80ce0fbe93.PNG)
 
 
-### --- MDOELO LOGICO --- 
+# MDOELO LOGICO  
 
 ![db_discoteca](https://user-images.githubusercontent.com/86980974/212477764-7b61d409-4274-4bce-9dd4-0003df84c580.png)
 
 
 _______________________________________________
 
-### --- ESTRUTURA DO BANCO DE DADOS --- 
+# ESTRUTURA DO BANCO DE DADOS 
 			
 ![image](https://user-images.githubusercontent.com/86980974/212478469-4c9bb88a-4682-4470-86ae-6b8720ecfa46.png)
 
 _______________________________________________
 
-## As principais tabelas do banco são:
+# As principais tabelas do banco são:
 
 - `Tabela 1`: tb_artista: tabela que contém as informações dos artistas contratados pela gravadora, como nome, nacionalidade, data de nascimento, entre outros.
 - `Tabela 2`: tb_disco: tabela que contém as informações dos discos produzidos pela gravadora, como título, tempo total, ano de lançamento, entre outros.
