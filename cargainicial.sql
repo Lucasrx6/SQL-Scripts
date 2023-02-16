@@ -384,3 +384,57 @@ END;
 $$
 DELIMITER ;
 
+SP_DELETE_ARTISTA:
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_artista(IN artista_id INT)
+BEGIN
+DELETE FROM tb_artista WHERE id_artista = artista_id;
+END //
+
+DELIMITER ;
+
+SP_DELETE_GENERO:
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_genero(IN genero_id INT)
+BEGIN
+DELETE FROM tb_genero WHERE id_genero = genero_id;
+END //
+
+DELIMITER ;
+
+SP_DELETE_GRAVADORA:
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_gravadora(IN gravadora_id INT)
+BEGIN
+DELETE FROM tb_gravadora WHERE id_gravadora = gravadora_id;
+END //
+
+DELIMITER ;
+
+SP_DELETE_DISCO:
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_disco(IN disco_id INT)
+BEGIN
+DELETE FROM tb_disco WHERE id_disco = disco_id;
+END //
+
+DELIMITER ;
+
+SP_DELETE_MUSICA:
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_musica(IN musica_id INT)
+BEGIN
+DELETE FROM tb_musica WHERE id_musica = musica_id;
+END //
+
+DELIMITER ;
