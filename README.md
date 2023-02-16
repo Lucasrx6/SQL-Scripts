@@ -32,7 +32,7 @@ _______________________________________________
 - `Tabela 5`: tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
 
 O banco de dados também conta com algumas procedures para facilitar a inserção de dados nas tabelas e evitar possíveis erros, como valores nulos ou em branco. Algumas das principais procedures são:
-### Procedures de DELETE
+### Procedures de INSERT
 - `Procedure 1`: sp_insert_artista: Insere um novo artista na tabela tb_artista, verificando se os dados de entrada (nome_artista, ano_nascimento, id_pais) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
 - `Procedure 2`: sp_insert_disco: Insere um novo disco na tabela tb_disco, verificando se os dados de entrada (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero) são válidos e não nulos. Para garantir que o tempo total do disco seja a soma do tempo das músicas que o compõem, a procedure realiza uma soma do tempo das músicas com o mesmo id_disco do disco a ser inserido e compara com o valor passado como parâmetro. Caso os dados de entrada não sejam válidos, a procedure não realiza a inserção e retorna uma mensagem de erro.
 - `Procedure 3`: sp_insert_gravadora: Insere uma nova gravadora na tabela tb_gravadora, verificando se os dados de entrada (nome_gravadora, id_pais) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
@@ -44,6 +44,8 @@ O banco de dados também conta com algumas procedures para facilitar a inserçã
 - `Procedure 8`: sp_delete_genero: Deleta um gênero da tabela tb_genero, verificando se o id do gênero é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
 - `Procedure 9`: sp_delete_disco: Deleta um disco da tabela tb_disco, verificando se o id do disco é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
 - `Procedure 10`: sp_delete_musica: Deleta uma música da tabela tb_musica, verificando se o id da música é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
+### Procedures de UPDATE
+- `Procedure 11`: sp_delete_artista: Deleta um artista da tabela tb_artista, verificando se o id do artista é válido e não nulo. Caso não seja, a procedure não realiza a exclusão e retorna uma mensagem de erro.
 
 Trigger:
 
