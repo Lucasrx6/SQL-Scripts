@@ -32,6 +32,7 @@ _______________________________________________
 - `Tabela 5`: tb_musica: tabela que contém as informações das músicas, como título, tempo, letra, entre outros.
 
 O banco de dados também conta com algumas procedures para facilitar a inserção de dados nas tabelas e evitar possíveis erros, como valores nulos ou em branco. Algumas das principais procedures são:
+# Procedures:
 ### Procedures de INSERT
 - `Procedure 1`: sp_insert_artista: Insere um novo artista na tabela tb_artista, verificando se os dados de entrada (nome_artista, ano_nascimento, id_pais) são válidos e não nulos. Caso não sejam, a procedure não realiza a inserção e retorna uma mensagem de erro.
 - `Procedure 2`: sp_insert_disco: Insere um novo disco na tabela tb_disco, verificando se os dados de entrada (titulo_disco, tempo_disco, ano_lancamento, id_artista, id_gravadora, id_genero) são válidos e não nulos. Para garantir que o tempo total do disco seja a soma do tempo das músicas que o compõem, a procedure realiza uma soma do tempo das músicas com o mesmo id_disco do disco a ser inserido e compara com o valor passado como parâmetro. Caso os dados de entrada não sejam válidos, a procedure não realiza a inserção e retorna uma mensagem de erro.
@@ -51,7 +52,7 @@ O banco de dados também conta com algumas procedures para facilitar a inserçã
 - `Procedure 14`: sp_update_gravadora: Atualiza as informações de uma gravadora na tabela tb_gravadora. Verifica se os dados de entrada (nome_gravadora) são válidos e não nulos. Impede a inserção de caracteres numéricos no nome da gravadora.
 - `Procedure 15`: sp_update_musica: Atualiza as informações de uma música na tabela tb_musica. Verifica se os dados de entrada (titulo_musica, duracao_musica, id_disco, id_genero) são válidos e não nulos. Impede a inserção de caracteres numéricos no título da música e garante que a duração da música seja inserida corretamente.
 
-Trigger:
+# Trigger:
 
 - `Trigger`: trigger_insert_tb_musica: Atua sobre a tabela tb_musica, executando uma série de ações quando uma nova linha é inserida na tabela. A trigger atualiza o campo tempo_disco na tabela tb_disco, somando o tempo da nova música inserida ao tempo já existente do disco. Além disso, a trigger verifica se o tempo total do disco após a inserção da nova música é menor ou igual a 80 minutos. Caso ultrapasse esse limite, a trigger remove a última música inserida e atualiza novamente o campo tempo_disco na tabela tb_disco. Isso garante que o tempo total do disco nunca ultrapasse o limite de 80 minutos.
 
