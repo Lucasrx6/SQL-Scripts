@@ -74,7 +74,30 @@ O banco de dados está disponível online e pode ser acessado por meio do link: 
 O acesso é restrito e só pode ser feito por meio de um usuário e senha previamente cadastrados. Para usar o banco, é necessário ter conhecimentos em SQL e no sistema de gerenciamento de banco de dados MySQL.
 
 # Como Contribuir
-Este projeto é um banco de dados que foi desenvolvido com o objetivo de gerir as informações de uma gravadora.
+
+### Pré-requisitos
+- É necessário ter o MySQL instalado na sua máquina.
+- É necessário ter um software que permita a criação de um banco de dados, como o MySQL Workbench, instalado na sua máquina.
+
+### Instalação
+- 1 - Clone este repositório:
+git clone https://github.com/seu-usuario/db_discoteca.git
+- 2 - Abra o MySQL Workbench e crie um novo banco de dados com o nome "db_discoteca".
+- 3 - Abra o arquivo "cargainicial.sql" localizado na pasta raiz deste repositório e execute-o no seu banco de dados. Isso criará todas as tabelas necessárias para a gestão de uma gravadora, como descrito na seção "ESTRUTURA DO BANCO DE DADOS", assim como todas as procedures necessárias para inserção, atualização e exclusão de dados nas tabelas. deste README.
+
+Pronto! Agora você pode utilizar o seu banco de dados para gerir as informações da sua gravadora.
+
+### Utilização
+Você pode utilizar as procedures do seu banco de dados para inserir, atualizar e excluir dados nas tabelas. Abaixo, segue um exemplo de como utilizar a procedure "sp_insert_artista":
+
+- 1 - Abra o MySQL Workbench e conecte-se ao seu banco de dados.
+- 2 - Execute a procedure "sp_insert_artista" com os parâmetros "nome_artista", "ano_nascimento" e "id_pais". Por exemplo:
+CALL sp_insert_artista('João Silva', '1990-01-01', 1);
+- 3 - Pronto! Agora o artista João Silva está cadastrado na tabela "tb_artista" do seu banco de dados.
+
+### Considerações
+- Lembre-se de passar valores válidos e não nulos para as procedures. Caso contrário, as procedures não realizarão a inserção, atualização ou exclusão dos dados e retornarão uma mensagem de erro.
+- Para mais informações sobre como utilizar as procedures do seu banco de dados, consulte o arquivo "procedures.sql" localizado na pasta "sql" deste repositório.
 
 
 
