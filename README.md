@@ -83,7 +83,7 @@ O acesso é restrito e só pode ser feito por meio de um usuário e senha previa
 - 1 - Clone este repositório:
 git clone https://github.com/seu-usuario/db_discoteca.git
 - 2 - Abra o MySQL Workbench e crie um novo banco de dados com o nome "db_discoteca".
-- 3 - Abra o arquivo "cargainicial.sql" localizado na pasta raiz deste repositório e execute-o no seu banco de dados. Isso criará todas as tabelas necessárias para a gestão de uma gravadora, como descrito na seção "ESTRUTURA DO BANCO DE DADOS", assim como todas as procedures necessárias para inserção, atualização e exclusão de dados nas tabelas. deste README.
+- 3 - Abra o arquivo "cargainicial.sql" localizado na pasta raiz deste repositório e execute-o no seu banco de dados. Isso criará todas as tabelas necessárias para a gestão de uma gravadora, como descrito na seção "ESTRUTURA DO BANCO DE DADOS", assim como todas as procedures necessárias para inserção, atualização e exclusão de dados nas tabelas, views e Triggers.
 
 Pronto! Agora você pode utilizar o seu banco de dados para gerir as informações da sua gravadora.
 
