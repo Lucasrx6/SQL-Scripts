@@ -97,7 +97,7 @@ CALL sp_insert_artista('João Silva', '1990-01-01', 1);
 
 ### Considerações
 - Lembre-se de passar valores válidos e não nulos para as procedures. Caso contrário, as procedures não realizarão a inserção, atualização ou exclusão dos dados e retornarão uma mensagem de erro.
-- Para mais informações sobre como utilizar as procedures do seu banco de dados, consulte o a parte de Procedures localizado a partir da linha  deste repositório.
+- Para mais informações sobre como utilizar as procedures do seu banco de dados, consulte o a parte de Procedures localizado a partir da linha 207 do arquivo 'cargainicial.sql' deste repositório.
 
 
 
