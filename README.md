@@ -69,7 +69,12 @@ ______________________________________________
 O banco de dados foi desenvolvido utilizando o sistema de gerenciamento de banco de dados MySQL. Para criar as procedures, foram utilizadas a linguagem SQL e as sintaxes específicas do MySQL.
 
 # Como Usar
-O banco de dados está disponível online e pode ser acessado por meio do link: [link do banco].
+O banco de dados está disponível online e pode ser acessado pela conexão:
+- HOST: containers-us-west-43.railway.app
+- PORT: 5875
+
+- Usuário: Tester
+- Senha: 1234.
 
 O acesso é restrito e só pode ser feito por meio de um usuário e senha previamente cadastrados. Para usar o banco, é necessário ter conhecimentos em SQL e no sistema de gerenciamento de banco de dados MySQL.
 
